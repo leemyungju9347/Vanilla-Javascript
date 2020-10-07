@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todoList</title>
+    <style>
+        body{
+            color:#34495e
+        }
+        .form,.greetings{display: none;}
+        .showing{display: block;}
+        ul,li{list-style: none;}
+        li{padding:5px 0;}
+        .checked span {
+            text-decoration: line-through;
+            color: rgba(0, 0, 0, 0.5);
+        }
+        .delete_btn{margin: 5px;}
+        input[type=checkbox] { 
+            margin-right: 10px;
+        }
+        /* .edit_btn{display: none;} */
+    </style>
+</head>
+<body>
+ 
+    <form class="js-form form">
+        <input type="text" placeholder="What is your name">
+    </form>
+    <h4 class="js-greetings greetings"></h4>
+    <form class="js-todoForm">
+        <input type="text" placeholder="Write a to do">
+    </form>
+    <ul class="js-toDoList"></ul>
+
+   
+
+
+    <script>
+        //사용자 이름 저장
+        const form = document.querySelector('.js-form');
+        const input = document.querySelector('input')
+        const greeting = document.querySelector('.js-greetings')
+
+        const USER_LS = 'currentUser'
+        const SHOWING_CN = 'showing'
+
+        //로컬에 유저 네임 저장 함수
+        function saveName(text){
+            localStorage.setItem(USER_LS,text)
+        }
+
+        //엔터키를 눌러서 입력창의 값을 전송
+        function handleSubmit(ev){
+            ev.preventDefault();
+            const currentValue = input.value;
+
+            paintGreeting(currentValue)
+            saveName(currentValue);
+        }
+
+        //이름을 입력하도록 요청하는 함수
+        function askForName(){
+            form.classList.add(SHOWING_CN)
+            form.addEventListener('submit',handleSubmit)
+        }
+
+
+        function paintGreeting(text){
+            form.classList.remove(SHOWING_CN);
+            greeting.classList.add(SHOWING_CN);
+            greeting.innerText = `hello ${text}`;
+        }
+
+        function loadName(){
+            const currentUser = localStorage.getItem(USER_LS);
+            //유저가 없는 경우
+            if( currentUser === null){
+                askForName()
+
+            }else{//유저가 있는 경우
+                paintGreeting(currentUser)
+            }
+        }
+
+
+        function init(){
+            loadName()
+        }
+
+        init();
+
+        //투두리스트
+
+        // 1. 완료버튼 - 완료되면 선 긋고 블러처리
+        // 2. 수정버튼 
+        // 3. 사용자 수정
+        const toDoForm = document.querySelector('.js-todoForm');
+        const toDoInput = toDoForm.querySelector('input');
+        const toDoList = document.querySelector('.js-toDoList')
+        const btn = document.querySelector('.edit_btn')
+        const TODOS_LS = 'toDos';
+
+        let toDos = []; //투두리스트 배열
+
+        //로컬에 저장
+        function saveToDos(){
+            localStorage.setItem(TODOS_LS,JSON.stringify(toDos)) //로컬에 투두리스트 배열을 json형식으로 저장
+            //로컬에는 자바스크립트 형태의 데이터를 저장할 수 없음
+            //JSON.stringify를 사용하면 object형식을 string으로 바꿔줌
+        }
+
+        //삭제 이벤트 함수
+        function deleteToDo(ev){
+            const btn = ev.target
+            const li = btn.parentNode;
+
+            toDoList.removeChild(li)
+
+            //filter 조건에 일치하는 것만 출력
+            const cleanToDo = toDos.filter(function(toDo){
+                return toDo.id !== parseInt(li.id) 
+                //모든 toDo.id가 li.id와 같지 않을때
+                //parseInt() - 문자열을 정수로 바꾸는 함수
+            })
+
+
+            toDos = cleanToDo
+
+            saveToDos()
+        }  
+
+        
+        
+
+        //체크박스 함수
+        function checkToDo(ev){
+            let parentNode = ev.target.parentNode
+            let parentId = parentNode.id - 1
+
+            
+            //체크박스가 눌려질때 -> 클래스이름을 변경해준다.
+            if( ev.target.checked === true ){
+                parentNode.classList.add('checked')
+                toDos[parentId].check = 'done'
+
+                
+            }else{ //체크박스가 풀릴때 ->
+                parentNode.classList.remove('checked')
+                toDos[parentId].check ='created'
+
+            }
+
+            saveToDos()
+
+        }
+
+        let status = true; // submit이벤트 실행할때 필요한 전역변수
+
+        //li와 index를 전역변수로 설정 - 이유 : 'submit' 이벤트에서 해당 li의 id값이 가져와야해서
+        let toDoLis = null
+        let index = null
+        
+        // edit 함수
+        function editToDo(ev){
+            toDoLis = ev.target.parentNode
+            index = toDoLis.id - 1
+
+            if( toDos[index].check === 'done' ) return // 할일이 완료되면 수정 못하도록 리턴
+            
+
+            status = !status // 수정버튼이 눌리면 status를 'false'로 바꿈
+            toDoInput.value = toDos[index].text //해당 text를 input으로 올려줌
+ 
+        }
+
+
+        //submit 이벤트 함수
+        function editSubmit(ev){
+            ev.preventDefault();
+
+            // status가 false 값이면 'submit' 이벤트를 실행하도록 하라.
+            if( !status ){
+
+                toDos[index].text = toDoInput.value
+                toDoLis.querySelector('span').innerText = toDoInput.value
+
+                toDoInput.value = ''
+                status = true
+                saveToDos()
+            }
+        }
+
+       
+
+        //1. 체크박스 버튼이 눌리면 배열에 'done'을 주고
+        //2. 체크박스 버튼이 풀리면 'done'이 create로 바뀐다.
+        //3. 체크박스는 'done' 일때 li에 class name 'checked'를 준다.
+        function paintToDo(text,check){
+            const liElm = document.createElement('li')
+            const delBtn = document.createElement('button');
+            const span = document.createElement('span');
+            const edit = document.createElement('button');
+            const checkBox = document.createElement('input');
+            
+            const newId = toDos.length + 1; 
+
+            delBtn.innerText = 'delete'
+            checkBox.type = 'checkbox'
+            edit.innerText = 'edit'
+
+            checkBox.classList.add('checkBox')
+            delBtn.classList.add('delete_btn')
+            
+            span.innerText = text
+
+            delBtn.addEventListener('click',deleteToDo)
+            checkBox.addEventListener('click',checkToDo)
+            edit.addEventListener('click',editToDo)
+
+
+            liElm.appendChild(span)
+            liElm.appendChild(delBtn)
+            liElm.appendChild(edit)
+            liElm.insertBefore(checkBox,liElm.firstElementChild)
+
+            liElm.id = newId;
+
+            toDoList.appendChild(liElm)
+            
+            const toDoObj = {
+                text:text,
+                id:newId,
+                check:check
+            }
+
+                                  
+            toDos.push(toDoObj)
+            
+            saveToDos()
+            
+        }
+
+
+        //입력값 전달 함수
+        function formHandleSubmit(ev){
+            ev.preventDefault();
+            
+            const currentValue = toDoInput.value;
+
+            const check = 'created'
+            
+            //만약 조건에 안맞으면 submit을 제출하지 못하도록..?
+            // staus 값이 true일때 'submit'할것
+            if( status ){
+                paintToDo(currentValue,check) //페인트 함수에 입력된 value 값 전달  
+                toDoInput.value = '';
+
+            }else return false
+        }
+
+
+        //로컬에 있는 투두리스트 불러오기
+        function loadToDos(){
+            const loadedToDos = localStorage.getItem(TODOS_LS)
+            
+            if( loadedToDos !== null ){
+                const parsedToDos = JSON.parse(loadedToDos); 
+                // 로컬에서 투두리스트는 string 형태로 저장되어있음 
+                // 이것을 객체로 변경해주기 위한 과정
+                
+                //parsedToDos.forEach(something) // forEach - 바깥에 함수를 두고 실행할 수 있음
+                
+                parsedToDos.forEach(function(toDo){
+                    localStorage.getItem(toDo)
+                    
+                    paintToDo(toDo.text,toDo.check)
+
+                    
+                })
+            }
+        }
+
+
+        //상위 함수 
+        function FormInit(){
+            loadToDos();
+            
+            toDoForm.addEventListener('submit', formHandleSubmit) //투두리스트 추가
+            toDoForm.addEventListener('submit', editSubmit) //수정
+
+            //초기화면시 체크된 해당 리스트에 css 설정하기
+            const lis = toDoList.querySelectorAll('li')
+            
+            for(let i = 0; i < toDos.length; i++){
+                if( toDos[i].check === 'done' ){
+                    lis[i].classList.add('checked')
+                    lis[i].querySelector('.checkBox').checked = true
+                    
+                }else{
+                    lis[i].classList.remove('checked')
+                    lis[i].querySelector('.checkBox').checked = false
+                }
+                
+            }
+        }
+
+        FormInit()
+    </script>
+</body>
+</html>
