@@ -1,0 +1,18 @@
+body {
+    background-color: #b3ccf5;
+}
+
+ul > li + li {
+    margin-top: 15px;
+}
+
+ul > li > span {
+    margin-right: 10px;
+}
+
+ul > li > button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
