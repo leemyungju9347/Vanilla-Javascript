@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+    <h1>Random Number Game 👾</h1>
+    <h3>Generate a number between 0 and <span class="range-result"></span></h3>
+    <input type="range" class="range-input" step="5" min="0" max="200" value="10">
+    <form action="" class="guessNum-form">
+        <b>Guess the number :</b>
+        <input type="number">
+        <button>play!</button>
+    </form>
+    <div class="js-game-result">
+        <p>You chose : <span class="guess-num"></span>, the machine chose: <span class="machine-num"></span>.</p>
+        <strong class="result-txt"></strong>
+    </div>
+    <script src="src/index.js"></script>
+</body>
+</html>
