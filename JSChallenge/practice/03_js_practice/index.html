@@ -3,20 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>practice</title>
-    <link rel="stylesheet" href="./src/style.css">
+    <title>vanillaJS_project</title>
+    <link rel="stylesheet" href="src/style.css">
 </head>
 <body>
-    <div class="js-clock">
-        <h1 class="js-title">00:00</h1>
+    <div class="wrap">
+        <div class="js-clock">
+            <h1 class="js-title">00:00</h1>
+        </div>
+        <div class="greetings-area">
+            <h4 class="js-greetings greetings"></h4>
+            <form class="js-form form">
+                <input class="js-input" type="text" placeholder="what is your name?">
+            </form>
+        </div>
+        <div class="todoForm-area">
+            <form class="js-todoForm">
+                <input class="js-input" type="text" placeholder="Write a to do">
+            </form>
+            <ul class="js-toDoList"></ul>
+        </div>
+        <span class="js-weather"></span>
     </div>
-    <h4 class="js-greetings greetings"></h4>
-    <form class="js-form form">
-        <input type="text" placeholder="what is your name?">
-    </form>
-    <span class="js-weather"></span>
     <script src="src/clock.js"></script>
     <script src="src/gretting.js"></script>
+    <script src="src/todolist.js"></script>
     <script src="src/background.js"></script>
     <script src="src/weather.js"></script>
 </body>
