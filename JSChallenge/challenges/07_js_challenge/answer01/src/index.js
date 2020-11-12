@@ -1,5 +1,3 @@
-import "./styles.css";
-
 const result = document.querySelector(".js-result");
 const reset = document.querySelector(".js-reset");
 const equals = document.querySelector(".js-equals");
