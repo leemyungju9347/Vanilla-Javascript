@@ -9,33 +9,44 @@
 </head>
 <body>
     <div class="wrap">
-        <div class="line-1">
-            <input class="number-input" type="text" disabled>
-            <button class="reset-btn" data-type="ac">C</button>
+        <!-- 계산기 -->
+        <div class="calc-area">
+            <h1>calculator</h1>
+           <div class="result">
+                <span class="result-num"></span>
+                <button class="reset-btn" data-type="ac">AC</button>
+            </div>
+            <div class="number">
+                <div class="calc-row">
+                <button>7</button>
+                <button>8</button>
+                <button>9</button>
+                
+            </div>
+            <div class="calc-row">
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+            </div>
+            <div class="calc-row">
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+            </div>
+            <div class="calc-row">
+                <button class="zero">0</button>
+                <button class="equals" data-type="equals">=</button>
+            </div> 
+            </div>
+            <div class="operator">
+                <button data-type="operator">+</button>
+                <button data-type="operator">-</button>
+                <button data-type="operator">x</button>
+                <button data-type="operator">/</button>
+            </div>
         </div>
-        <div class="line-2">
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button data-type="operator">+</button>
-        </div>
-        <div class="line-3">
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button data-type="operator">-</button>
-        </div>
-        <div class="line-4">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button data-type="operator">*</button>
-        </div>
-        <div class="line-5">
-            <button class="zero">0</button>
-            <button class="equals" data-type="equals">=</button>
-            <button class="equals" data-type="operator">/</button>
-        </div>
+        <!-- 라이트/다크 모드 설정 -->
+        <div class="setting-area"></div>
     </div>
     
     <script src="src/index.js"></script>

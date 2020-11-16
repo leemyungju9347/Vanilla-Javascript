@@ -3,6 +3,50 @@
 */
 
 
+
+.wrap {
+  /* border: 1px solid black; */
+  height: 100vh;
+  overflow: hidden;
+}
+
+.calc-area {
+  background-color: cadetblue;
+  background-color: #F1F3F6;
+  background-color: #293345;
+  width: 400px;
+  margin: 90px auto 0;
+  padding: 30px 20px 40px;
+  border-radius: 20px;
+  box-shadow: 8px 12px 8px #a2a2a2;
+}
+
+.calc-area::after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+.calc-area > h1 {
+  text-align: center;
+  color: #fff;
+  font-size: 1.8em;
+}
+
+.calc-area button {
+  font-size: 2em;
+  padding: 15px 5px;
+  border-radius:30px;
+  background-color: #F1F3F6;
+  border: transparent;
+  background-color: #293345;
+  color: #fff;
+  box-shadow: -7px -7px 20px 0 rgba(255, 255, 255, 0.7),
+    7px 7px 20px 0 rgba(0, 0, 0, 0.2);
+
+  box-shadow: -7px -7px 20px 0 #363d4d, 7px 7px 20px 0 #141a25;
+}
+
 /* body {
     align-items: center;
     background-color: #afd275;
@@ -26,3 +70,84 @@ align-items: center;
   border: transparent;
   margin: 50px;
 } */
+
+.calc-area > .result {
+  width: 100%;
+  margin: 20px 0 30px;
+  
+}
+
+.calc-area > .result > .result-num {
+  display:inline-block;
+  width: 80%;
+  color: #fff;
+  font-size: 2em;
+  text-align: right;
+  padding: 0 20px;
+  /* border: 1px solid red; */
+}
+
+.calc-area > .result > .reset-btn {
+  width: calc(20% - 5px);
+}
+
+.calc-area > .number {
+  /* border: 1px solid blue; */
+  float: left;
+  width: 80%;
+  /* border: 1px solid red; */
+}
+
+.calc-area > .number > .calc-row {
+  /* border: 1px solid #fff; */
+  /* margin-top: 15px; */
+}
+
+.calc-area > .number > .calc-row + .calc-row {
+  margin-top: 20px;
+}
+
+.calc-area > .number > .calc-row::after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+
+.calc-area > .number > .calc-row > button {
+  width: calc(33.333333% - 20px);
+  float: left;
+  margin:0 10px;
+  /* margin: 0 10px; */
+}
+
+.calc-area > .number > .calc-row > button:first-child {
+  margin-left: 0;
+  width: calc(33.333333% - 10px);
+}
+
+.calc-area > .number > .calc-row > .zero {
+}
+
+.calc-area > .number > .calc-row > .equals {
+  color: #FC9407;
+  width: calc(100% - 33.333333% - 20px);
+}
+
+
+.calc-area > .operator {
+  float:right;
+  width: calc(20% - 5px);
+  margin-left: 5px;
+}
+
+.calc-area > .operator >  button {
+  display: block;
+  width: 100%;
+  color: #FC9407;
+}
+
+
+.calc-area > .operator > button + button {
+  margin-top: 20px;
+}

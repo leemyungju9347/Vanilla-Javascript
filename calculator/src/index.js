@@ -1,5 +1,5 @@
 const buttons = document.querySelectorAll('button');
-const resultInput = document.querySelector('.number-input');
+const resultNum = document.querySelector('.result-num');
 
 let firstValue = '',
     firstCheck,
@@ -25,7 +25,7 @@ function doCalculate() {
         case '-':
             return intFirstValue - intSecondValue;
         
-        case '*':
+        case 'x':
             return intFirstValue * intSecondValue;
 
         case '/':
@@ -40,7 +40,7 @@ function doCalculate() {
 
 function culcResult() {
     const culcResult = doCalculate();
-    resultInput.value = culcResult;
+    resultNum.innerText = culcResult;
     firstValue = culcResult;
     secondValue = '';
     secondCheck = false;
@@ -82,7 +82,7 @@ function clickNumber(number) {
             console.log('첫번째 눌렀는데 값이 있다!?!?!? + 리셋ver 🤑');
             firstValue = '';
             firstValue += number;
-            resultInput.value = firstValue
+            resultNum.innerText = firstValue
 
         
         // 아예 처음시작일때
@@ -90,7 +90,7 @@ function clickNumber(number) {
 
             console.log('첫번째 눌렀는데 값이 없다!?!?!? + 맨~처음ver 😴');
             firstValue += currentNum
-            resultInput.value = firstValue
+            resultNum.innerText = firstValue
 
 
         }
@@ -101,7 +101,7 @@ function clickNumber(number) {
 
     }else{
         secondValue += currentNum;
-        resultInput.value = secondValue;
+        resultNum.innerText = secondValue;
         secondCheck = true;
 
         console.log('두번째!!!!! firstValue ===>', firstValue,firstCheck);
@@ -119,7 +119,7 @@ function clickReset() {
     firstValue = '0';
     secondValue = '';
     currentOperation = null;
-    resultInput.value = '0';
+    resultNum.innerText = '0';
 
     console.log('여긴 reset존!!!! first',firstValue,firstCheck);
     console.log('여긴 reset존!!!! second',secondValue,secondCheck);
