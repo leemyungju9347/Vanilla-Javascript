@@ -6,6 +6,7 @@
     <title>JS_calculator</title>
     <link rel="stylesheet" href="./src/css/common.css">
     <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 </head>
 <body>
     <div class="wrap">
@@ -13,7 +14,7 @@
         <div class="calc-area">
             <h1>calculator</h1>
            <div class="result">
-                <span class="result-num"></span>
+                <input class="result-num" type="text" disabled>
                 <button class="reset-btn" data-type="ac">AC</button>
             </div>
             <div class="number">
@@ -46,7 +47,15 @@
             </div>
         </div>
         <!-- 라이트/다크 모드 설정 -->
-        <div class="setting-area"></div>
+        <div class="setting-area">
+            <input class="check-switch" type="checkbox" id="switch" name="switch">
+            <label for="switch" class="label-switch">
+                <span class="round"></span>
+                <span class="light">Light</span>
+                <span class="dark">Dark</span>
+            </label>
+        </div>
+        <!-- <i class="fas fa-moon"></i -->
     </div>
     
     <script src="src/index.js"></script>

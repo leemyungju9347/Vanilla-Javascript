@@ -1,5 +1,9 @@
 const buttons = document.querySelectorAll('button');
 const resultNum = document.querySelector('.result-num');
+const checkSwitch = document.querySelector('.check-switch');
+const controlSwitch = document.querySelector('.label-switch');
+// const bodyElm = document.querySelector('.calc-area');
+const bodyElm = document.querySelector('body');
 
 let firstValue = '',
     firstCheck,
@@ -40,7 +44,7 @@ function doCalculate() {
 
 function culcResult() {
     const culcResult = doCalculate();
-    resultNum.innerText = culcResult;
+    resultNum.value = culcResult;
     firstValue = culcResult;
     secondValue = '';
     secondCheck = false;
@@ -82,7 +86,7 @@ function clickNumber(number) {
             console.log('첫번째 눌렀는데 값이 있다!?!?!? + 리셋ver 🤑');
             firstValue = '';
             firstValue += number;
-            resultNum.innerText = firstValue
+            resultNum.value = firstValue
 
         
         // 아예 처음시작일때
@@ -90,7 +94,7 @@ function clickNumber(number) {
 
             console.log('첫번째 눌렀는데 값이 없다!?!?!? + 맨~처음ver 😴');
             firstValue += currentNum
-            resultNum.innerText = firstValue
+            resultNum.value = firstValue
 
 
         }
@@ -101,7 +105,7 @@ function clickNumber(number) {
 
     }else{
         secondValue += currentNum;
-        resultNum.innerText = secondValue;
+        resultNum.value = secondValue;
         secondCheck = true;
 
         console.log('두번째!!!!! firstValue ===>', firstValue,firstCheck);
@@ -119,7 +123,7 @@ function clickReset() {
     firstValue = '0';
     secondValue = '';
     currentOperation = null;
-    resultNum.innerText = '0';
+    resultNum.value = '0';
 
     console.log('여긴 reset존!!!! first',firstValue,firstCheck);
     console.log('여긴 reset존!!!! second',secondValue,secondCheck);
@@ -165,6 +169,30 @@ function init() {
     buttons.forEach(el=>{
         el.addEventListener('click',btnClickHandle)
     })
+    // console.log(checkSwitch.checked);
+
+    controlSwitch.addEventListener('click',function (ev) {
+        // 다크 false
+        // 라이트 true
+        // console.log(ev.target);
+        console.log(checkSwitch.checked);
+        if( !checkSwitch.checked ) {
+            // true
+            console.log(checkSwitch.checked, '체크됐다!!!라이트');
+            bodyElm.classList.add('on')
+        }else {
+            console.log(checkSwitch.checked, '체크해체!!!다크');
+            bodyElm.classList.remove('on')
+        }
+    })
+    console.log(checkSwitch.checked);
+
+    // if( checkSwitch.checked ) {
+    //     // true
+    //     console.log(checkSwitch.checked, '체크됐다!!!');
+    // }else {
+    //     console.log(checkSwitch.checked, '체크해체!!!');
+    // }
 }
 
 init()

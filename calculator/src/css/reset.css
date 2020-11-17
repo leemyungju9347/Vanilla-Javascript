@@ -11,15 +11,21 @@ body {
 	margin:0;
 	padding:0;
     word-break: keep-all;
-    background-color: #E4F2F6;
+    /* background-color: #E4F2F6;
     background-color: #DBE4FF;
-    background-color: #5D6A7D;
+    background-color: #5D6A7D; */
     background-color: #E6E9EF;
     font-family: 'Goldman', cursive;
     font-family: 'Ubuntu', sans-serif;
     font-weight: bold;
-    
+    /* background-color: #c9cfe1; */
 }
+
+body.on {
+    background-color: #c7cee6;
+}
+
+/* background-color: #c9cfe1; */
 
 h1, h2, h3, h4, h5, h6 {font-size:1em;}
 h1, h2, h3, h4, h5, h6, div, p, dl, dt, dd, ul, ol, li, form, fieldset, blockquote, address, table, thead, tbody, tfoot, tr, td, caption {
@@ -44,13 +50,13 @@ select:focus {
     outline-offset:unset;
 }
 
-button {
+button,input {
     cursor: pointer;
     background-color: transparent;
     border: transparent;
     font-family: 'Ubuntu', sans-serif;
     font-weight: bold;
-    /* font-family: 'Goldman', cursive; */
+    color: #fff;
 }
 
 
